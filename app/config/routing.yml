@@ -1,0 +1,3 @@
+louvre_ticket_order:
+    resource: "@LouvreTicketOrderBundle/Resources/config/routing.yml"
+    prefix:   /
