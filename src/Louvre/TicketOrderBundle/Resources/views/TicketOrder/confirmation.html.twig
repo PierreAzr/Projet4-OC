@@ -1,0 +1,29 @@
+
+{% extends "LouvreTicketOrderBundle::layout.html.twig" %}
+{% block title %}<title>Commande validée</title>{% endblock %}
+{% block body %}
+<div class="container">
+  {% if ticketOrder.typeticket == 'Journée' %}
+      <p>Billets valables toute la journée du {{ ticketOrder.visitDate|date('d/m/y') }}</p>
+  {% else %}
+      <p>Billets valables à partir de 14H pour la journée du {{ ticketOrder.visitDate|date('d/m/y') }}</p>
+  {% endif %}
+  <br/>
+  <hr>
+  {% for ticket in ticketOrder.tickets %}
+      <div class="col-sm-4">
+          {{ ticket.name|upper }} {{ ticket.firstName|capitalize }}
+      </div>
+      <div class="col-sm-4">
+          Tarif : {{ticket.priceList}}
+      </div>
+      <div class="col-sm-4">
+          <p class="price">
+          Prix unitaire : <b>{{ ticket.price|number_format(2) }} €</b>
+          </p>
+      </div>
+      <br>
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}

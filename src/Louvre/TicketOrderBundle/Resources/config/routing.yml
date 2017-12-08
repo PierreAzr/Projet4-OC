@@ -1,3 +1,9 @@
 louvre_ticket_order_homepage:
     path:     /
-    defaults: { _controller: LouvreTicketOrderBundle:Default:index }
+    defaults: { _controller: LouvreTicketOrderBundle:TicketOrder:index }
+louvre_ticket_order_payment:
+    path:      /payment/{ticketOrder}
+    defaults:
+      _controller:  LouvreTicketOrderBundle:TicketOrder:payment
+    requirements:
+      id: \d+

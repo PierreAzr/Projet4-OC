@@ -24,11 +24,16 @@ class TicketOrderController extends Controller
 
     if ($form->isSubmitted() && $form->isValid()) {
 
-                // on enregistre notre commande dans la base de données
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($ticketOrder);
-                $em->flush();
-                echo "ok";
+            // on enregistre notre commande dans la base de données
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($ticketOrder);
+            $em->flush();
+
+            // on enregistre l'id de la commande dans la session
+            $session->set("idTicketOrder", $ticketOrder->getId());
+
+          //on redirige vers la route  payment avec l'id de la commande
+          return $this->redirectToRoute("louvre_ticket_order_payment", ["ticketOrder" => $ticketOrder->getId()]);
             }
 
     return $this->render('LouvreTicketOrderBundle:TicketOrder:index.html.twig', array(
@@ -37,4 +42,50 @@ class TicketOrderController extends Controller
 
   }
 
+  public function paymentAction(TicketOrder $ticketOrder, Request $request)
+  {
+
+    $session = $request->getSession();
+    $idTicketOrder = $session->get('idTicketOrder');
+    $id = $ticketOrder->getId();
+    $orderLvl = $ticketOrder->getOrderLvl();
+
+    // on vérifie que le niveau est égal à une commande enregisté mais pas payé
+    // on vérifie que l'id de la commande est dans la session
+    if($orderLvl == 1 && $idTicketOrder == $id){
+
+      $email = $ticketOrder->getEmail();
+      $price = $ticketOrder->getTotalPrice();
+      $price = $price * 100;
+
+          if ($request->isMethod('POST'))  {
+
+             \Stripe\Stripe::setApiKey($this->getParameter('stripe_api_key_sk'));
+             $token = $request->request->get('stripeToken');
+
+                 // Charge the Customer instead of the card:
+                 $charge = \Stripe\Charge::create(array(
+                   "amount" => $price,
+                   "currency" => "eur",
+                   "source" => $token
+                 ));
+
+               //Affiche la page de confirmation
+                return $this->render('LouvreTicketOrderBundle:TicketOrder:confirmation.html.twig', array(
+                 'ticketOrder' => $ticketOrder,
+                ));
+             }
+
+        //Affiche la page avec formulaire stripe
+        return $this->render('LouvreTicketOrderBundle:TicketOrder:payment.html.twig', array(
+          'price' => $price,
+          'email' => $email,
+          'id' => $id,
+          'ticketOrder' => $ticketOrder,
+        ));
+
+    }else{
+      return $this->redirectToRoute("louvre_ticket_order_homepage");
+    }
+  }
 }
