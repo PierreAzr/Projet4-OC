@@ -24,8 +24,11 @@ class TicketOrderController extends Controller
 
     if ($form->isSubmitted() && $form->isValid()) {
 
+                // on enregistre notre commande dans la base de données
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($ticketOrder);
+                $em->flush();
                 echo "ok";
-                exit;
             }
 
     return $this->render('LouvreTicketOrderBundle:TicketOrder:index.html.twig', array(

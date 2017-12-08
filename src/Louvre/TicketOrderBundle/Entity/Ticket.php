@@ -32,6 +32,8 @@ class Ticket
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\Length(min=2, minMessage="Au minimum deux caractére.")
+     * @Assert\NotBlank(message="ce champ ne doit pas être vide")
      */
     private $name;
 
@@ -39,6 +41,8 @@ class Ticket
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=255)
+     * @Assert\Length(min=2, minMessage="Au minimum deux caractére.")
+     * @Assert\NotBlank(message="ce champ ne doit pas être vide")
      */
     private $firstName;
 
@@ -53,6 +57,7 @@ class Ticket
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=255)
+     * @Assert\Country()
      */
     private $country;
 
@@ -247,6 +252,24 @@ class Ticket
     public function getTicketOrder()
     {
         return $this->ticketOrder;
+    }
+
+    /**
+     * @Assert\IsTrue()
+     */
+    public function isBirthDate()
+    {
+      //on enleve 4 ans car les billets sont gratuit pour un age inferieur à 4ans
+      $date = (new \DateTime('00:00:00'))->sub(new \DateInterval('P4Y'));
+      //Pour chaque date de naissance on vérifie qu'elle correspond bien à un enfant de plus de 4ans
+      return $this->getBirthDate() < $date;
+      //pareil que
+      // if ($this->getBirthDate() < $date){
+      //   return true;
+      // }else{
+      //   return false;
+      // }
+
     }
 
 
