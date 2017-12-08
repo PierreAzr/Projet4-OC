@@ -2,5 +2,130 @@
 
 {% block title %}<title>Billetterie du Louvre</title>{% endblock %}
 {% block body %}
-hello
+
+<div class="container">
+<h3>Formulaire commande</h3>
+
+  {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+  {# Les erreurs générales du formulaire. #}
+  {{ form_errors(form) }}
+
+      <div class="form-group">
+        {{ form_label(form.typeTicket, "Visite pour", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        <div class="col-sm-4">
+        {{ form_widget(form.typeTicket)}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        {{ form_label(form.email, "Adresse mail pour l'envoi des Billets", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        <div class="col-sm-4">
+        {{ form_widget(form.email)}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        {{ form_label(form.visitDate, "Choisiser la date de votre visite", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        <div class="col-sm-4">
+        {{ form_widget(form.visitDate)}}
+        </div>
+      </div>
+
+<p>
+  <div id="collectionContainer"
+      data-prototype="
+         {% filter escape %}
+             {{ include('LouvreTicketOrderBundle:TicketOrder:prototype.html.twig', { 'form': form.tickets.vars.prototype }) }}
+         {% endfilter %}">
+        {% for ticket in form.tickets %}
+        {{ include('LouvreTicketOrderBundle:TicketOrder:prototype.html.twig', { 'form': ticket }) }}
+        {% endfor %}
+</div>
+</p>
+
+
+
+  <div class="form-group" >
+  {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+  <a href="#" id="appendTicket" class="btn btn-default">Ajouter un Billet </a>
+  {{ form_widget(form.Valider, {'attr': {'class': 'btn btn-primary'}}) }}
+
+</div>
+
+{{ form_rest(form) }}
+{# Fermeture de la balise <form> du formulaire HTML #}
+{{ form_end(form) }}
+
+  </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#collectionContainer');
+
+    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+    var $billet = $('a#appendTicket');
+    $billet.click(function(e) {
+      addBillet($container);
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+    var index = $container.find(':input').length;
+
+    // On ajoute un premier champ automatiquement.
+    if (index == 0) {
+      addBillet($container);
+    } else {
+      // On ajoute un lien de suppression
+      $container.children('div').each(function() {
+        addDeleteLink($(this));
+      });
+    }
+
+    // La fonction qui ajoute un formulaire Billet
+    function addBillet($container) {
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+      // - le texte "__name__label__" qu'il contient par le label du champ
+      // - le texte "__name__" qu'il contient par le numéro du champ
+      var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, index+1)
+          .replace(/__name__/g, index));
+
+      // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+      addDeleteLink($prototype);
+
+      // On ajoute le prototype modifié à la fin de la balise <div>
+      $container.append($prototype);
+
+      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+      index++;
+    }
+
+    // La fonction qui ajoute un lien de suppression d'une catégorie
+   function addDeleteLink($prototype) {
+     // Création du lien
+     $deleteLink = $('<div class="col-sm-12"><div class="buttonticket"><a href="#" class="btn btn-danger">Supprimer le billet</a></div><div style="text-align=center"><hr align="center"></div></div>');
+     // Ajout du lien
+     $prototype.append($deleteLink);
+     // Ajout du listener sur le clic du lien
+     $deleteLink.click(function(e) {
+       $prototype.remove();
+       e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+       return false;
+     });
+
+   }
+});
+
+
+
+
+
+
+
+</script>
+
 {% endblock %}

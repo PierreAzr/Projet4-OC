@@ -1,0 +1,38 @@
+<div class="billet clearfix">
+        <div class="form-group">
+          {{ form_label(form.name, "Votre nom", {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+          <div class="col-sm-5">
+            {{ form_widget(form.name, { 'attr': {'class': 'ticketwidget'} }) }}
+            {{ form_errors(form.name) }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ form_label(form.firstName, "Votre prénom", {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+          <div class="col-sm-5">
+          {{ form_widget(form.firstName, { 'attr': {'class': 'ticketwidget'} }) }}
+          {{ form_errors(form.firstName) }}
+          </div>
+        </div>
+
+         <div class="form-group">
+           {{ form_label(form.birthDate, "Votre date de naissance", {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+           <div class="col-sm-6">
+           {{ form_widget(form.birthDate, { 'attr': {'class': 'ticketwidgetbirthdate'} }) }}
+           </div>
+         </div>
+
+         <div class="form-group">
+           {{ form_label(form.country, "Votre pays", {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+           <div class="col-sm-5">
+           {{ form_widget(form.country, { 'attr': {'class': 'ticketwidget'} }) }}
+           </div>
+         </div>
+
+         <div class="form-group">
+           <label class="col-sm-5 control-label">Tarif réduit</label>
+           <div class="col-sm-5">
+           {{ form_widget(form.priceList)}}
+         </div>
+       </div>
+</div>
