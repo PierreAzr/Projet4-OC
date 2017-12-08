@@ -4,3 +4,16 @@ services:
         arguments: ["@request_stack", "@doctrine.orm.entity_manager"]   # Les données qu'on injecte au service : la requête et l'EntityManager
         tags:
             - { name: validator.constraint_validator, alias: louvre_ticket_order_ticketlimit }  # C'est avec l'alias qu'on retrouvera le service
+
+    louvre_ticket_order.mail.mailAdd:
+        class: Louvre\TicketOrderBundle\Mail\MailAdd
+        arguments:
+          - "@mailer"
+          - "@twig"
+
+    louvre_ticket_order.mail.maillistener:
+        class: Louvre\TicketOrderBundle\Mail\MailListener
+        arguments:
+          - "@louvre_ticket_order.mail.mailAdd"
+        tags:
+            - { name: kernel.event_listener, event: louvre_ticket_order.sendmail, method: processMail }

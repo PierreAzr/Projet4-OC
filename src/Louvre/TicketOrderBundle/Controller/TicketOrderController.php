@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Louvre\TicketOrderBundle\Entity\TicketOrder;
 use Louvre\TicketOrderBundle\Form\TicketOrderType;
+use Louvre\TicketOrderBundle\Event\TicketOrderEvent;
+use Louvre\TicketOrderBundle\Event\SendMailEvent;
 
 class TicketOrderController extends Controller
 {
@@ -69,6 +71,13 @@ class TicketOrderController extends Controller
                    "currency" => "eur",
                    "source" => $token
                  ));
+
+                    //on envoi le mail de confirmation contenant les billets
+                    //on crée l'évènement
+                    $event = new SendMailEvent($ticketOrder);
+
+                     //on déclenche l'évènement
+                     $this->get('event_dispatcher')->dispatch(TicketOrderEvent::NAME,$event);
 
                //Affiche la page de confirmation
                 return $this->render('LouvreTicketOrderBundle:TicketOrder:confirmation.html.twig', array(
