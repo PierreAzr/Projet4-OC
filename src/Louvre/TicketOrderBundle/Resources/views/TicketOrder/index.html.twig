@@ -2,130 +2,166 @@
 
 {% block title %}<title>Billetterie du Louvre</title>{% endblock %}
 {% block body %}
-
 <div class="container">
-<h3>Formulaire commande</h3>
-
+  <div class="row">
+   <div class="col-sm-10 col-sm-offset-1">
+  {# Début du formulaire. #}
   {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+  <p>
+    {# Les erreurs générales du formulaire. #}
+    {{ form_errors(form) }}
+  </p>
 
-  {# Les erreurs générales du formulaire. #}
-  {{ form_errors(form) }}
+ <div class="panel-group">
 
-      <div class="form-group">
-        {{ form_label(form.typeTicket, "Visite pour", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-        <div class="col-sm-4">
-        {{ form_widget(form.typeTicket)}}
-        </div>
-      </div>
+   <div class="marge">
+     <div class="panel panel-default">
+       <div class="panel-heading">Bienvenue</div>
+       <div class="panel-title">
+             <div class="form-group inline">
+              <p class="col-sm-12 hello">
+                Vous vous apprêtez à visiter le plus grand musée du monde,
+                fréquenté chaque année par près de 10 millions de visiteurs,
+                dont la mission principale est d’assurer la conservation,
+                l’éducation et la transmission d’un patrimoine aux générations futures.
+              </p>
+             </div>
+       </div>
+    </div>
+   </div>
 
-      <div class="form-group">
-        {{ form_label(form.email, "Adresse mail pour l'envoi des Billets", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-        <div class="col-sm-4">
-        {{ form_widget(form.email)}}
-        </div>
-      </div>
-
-      <div class="form-group">
-        {{ form_label(form.visitDate, "Choisiser la date de votre visite", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-        <div class="col-sm-4">
-        {{ form_widget(form.visitDate)}}
-        </div>
-      </div>
-
-<p>
-  <div id="collectionContainer"
-      data-prototype="
-         {% filter escape %}
-             {{ include('LouvreTicketOrderBundle:TicketOrder:prototype.html.twig', { 'form': form.tickets.vars.prototype }) }}
-         {% endfilter %}">
-        {% for ticket in form.tickets %}
-        {{ include('LouvreTicketOrderBundle:TicketOrder:prototype.html.twig', { 'form': ticket }) }}
-        {% endfor %}
-</div>
-</p>
-
-
-
-  <div class="form-group" >
-  {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
-  <a href="#" id="appendTicket" class="btn btn-default">Ajouter un Billet </a>
-  {{ form_widget(form.Valider, {'attr': {'class': 'btn btn-primary'}}) }}
-
-</div>
-
-{{ form_rest(form) }}
-{# Fermeture de la balise <form> du formulaire HTML #}
-{{ form_end(form) }}
-
+<div class="marge">
+   <div class="panel panel-default">
+     <div class="panel-heading">Etape 1</div>
+     <div class="panel-title">
+           <div class="form-group inline">
+              {{ form_label(form.visitDate, "Choisissez  votre date de visite:", {'label_attr': {'class': 'col-sm-6 control-label'}}) }}
+                  <div id="datepicker" class="col-sm-6">
+                      {{ form_widget(form.visitDate, { 'attr': {'class': 'visitdatewidget'} }) }}
+                  </div>
+           </div>
+     </div>
+     <div class="panel-body">
+         <p>
+           <div class="glyphicon glyphicon-time">Horraire</div><br>
+           - Le musée est ouvert tous les jours de 9h à 18h excepté le mardi.(fermeture des salles à partir de 17h30)<br>
+           - Le musée est ouvert en nocturne jusqu'à 21h45 le mercredi et le vendredi.(fermeture des salles à partir de 21h30)<br>
+           - Le musée est fermé le mardi et les 1er mai, 1er novembre et 25 décembre.
+          </p>
+   </div>
+  </div>
   </div>
 
-<script type="text/javascript">
-  $(document).ready(function() {
+<div class="marge">
+  <div class="panel panel-default">
+    <div class="panel-heading">Etape 2</div>
+    <div class="panel-title">
+          <div class="form-group inline">
+             {{ form_label(form.typeTicket, "Choisissez le type de billet:", {'label_attr': {'class': 'col-sm-6 control-label selectpicker'}}) }}
+                 <div id="typeTicket" class="col-sm-6">
+                     {{ form_widget(form.typeTicket, { 'attr': {'class': 'typeticketwidget'} }) }}
+                 </div>
+          </div>
+    </div>
+    <div class="panel-body">
+        <p>
+          <div class="glyphicon glyphicon-info-sign">Info</div><br>
+          - Billet Journée : valable de 9h à 18h<br>
+          - Billet Demi-journée : valable de 14h à 18h
+         </p>
+  </div>
+ </div>
+</div>
 
-    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-    var $container = $('div#collectionContainer');
+<div class="marge">
+ <div class="panel panel-default">
+   <div class="panel-heading">Etape 3</div>
+   <div class="panel-title">
+         <div class="form-group inline">
+            {{ form_label(form.email, "Rentrer votre email:", {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+                <div id="email" class="col-sm-4">
+                    {{ form_widget(form.email, { 'attr': {'class': 'emailwidget'} }) }}
+                </div>
+         </div>
+   </div>
+   <div class="panel-body">
+       <p>
+         <div class="glyphicon glyphicon-info-sign">Info</div><br>
+         - Vos billets seront envoyés à cette adresse mail
+        </p>
+ </div>
+</div>
+</div>
 
-    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
-    var $billet = $('a#appendTicket');
-    $billet.click(function(e) {
-      addBillet($container);
-      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-      return false;
-    });
+<div class="marge">
+<div class="panel panel-default">
+  <div class="panel-heading">Etape 4</div>
+  <div class="panel-title">
 
-    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
-    var index = $container.find(':input').length;
+        <div class="form-group inline" style="text-align:left;">
+          <div id="collectionContainer"
+              data-prototype="
+                 {% filter escape %}
+                     {{ include('LouvreTicketOrderBundle:TicketOrder:prototype.html.twig', { 'form': form.tickets.vars.prototype }) }}
+                 {% endfilter %}">
+                                  {% for ticket in form.tickets %}
+                                  {{ include('LouvreTicketOrderBundle:TicketOrder:prototype.html.twig', { 'form': ticket }) }}
+                                  {% endfor %}
+        </div>
+        <div style="text-align:center">
+          <p>Cliquer pour ajouter un nouveaux billets</p>
+          <a href="#" id="appendTicket" class="btn btn-info">Ajouter un Billet </a>
+        </div>
+        </div>
+  </div>
+  <div class="panel-body">
+      <p>
+        <div class="glyphicon glyphicon-info-sign">Info</div><br>
+        - Le tarif sera calculé en fonction des dates de naissance ou si la case tarif reduit et cochée<br>
+        - Tarif:
+        <ul>
+        <li>Normal 16 € à partir de 12 ans</li>
+        <li>Enfant 8 € à partir de 4 ans et jusqu’à 12 ans(l’entrée est gratuite pour les enfants de moins de 4 ans)</li>
+        <li>Senior 12 € à partir de 60 ans pour</li>
+        <li>Réduit 10 € accordé dans certaines conditions (étudiant, employé du musée, d’un service du Ministère de la Culture, militaire…)</li>
+        </ul>
+        - Pour les tarifs Enfant et Senior une piece d'identité sera demandé à l'accueil.<br>
+        - Pour le tarif Réduit un justificatif sera demandé à l'accueil.
+       </p>
+</div>
+</div>
+</div>
 
-    // On ajoute un premier champ automatiquement.
-    if (index == 0) {
-      addBillet($container);
-    } else {
-      // On ajoute un lien de suppression
-      $container.children('div').each(function() {
-        addDeleteLink($(this));
-      });
-    }
+<div class="marge">
+<div class="panel panel-default">
+  <div class="panel-heading">Etape 5</div>
+  <div class="panel-title">
+        <div class="form-group inline" style="text-align:center">
+          <p><b>Valider pour procédé au paiement</b></p>
+        {{ form_widget(form.Valider, {'attr': {'class': 'btn btn-info'}}) }}
+        </div>
+  </div>
+</div>
+</div>
+<!-- end panel-group -->
+ </div>
 
-    // La fonction qui ajoute un formulaire Billet
-    function addBillet($container) {
-      // Dans le contenu de l'attribut « data-prototype », on remplace :
-      // - le texte "__name__label__" qu'il contient par le label du champ
-      // - le texte "__name__" qu'il contient par le numéro du champ
-      var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, index+1)
-          .replace(/__name__/g, index));
+  {#{ form_rest(form) }#}
+  {# Fermeture de la balise <form> du formulaire HTML #}
+  {{ form_end(form) }}
 
-      // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
-      addDeleteLink($prototype);
-
-      // On ajoute le prototype modifié à la fin de la balise <div>
-      $container.append($prototype);
-
-      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-      index++;
-    }
-
-    // La fonction qui ajoute un lien de suppression d'une catégorie
-   function addDeleteLink($prototype) {
-     // Création du lien
-     $deleteLink = $('<div class="col-sm-12"><div class="buttonticket"><a href="#" class="btn btn-danger">Supprimer le billet</a></div><div style="text-align=center"><hr align="center"></div></div>');
-     // Ajout du lien
-     $prototype.append($deleteLink);
-     // Ajout du listener sur le clic du lien
-     $deleteLink.click(function(e) {
-       $prototype.remove();
-       e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-       return false;
-     });
-
-   }
-});
+    </div>
+  </div>
+<!-- end container -->
+</div>
 
 
 
-
-
-
-
-</script>
+<!-- On charge la bibliothèque datepicker  -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.fr.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css"/>
+<!-- On charge notre javascript  -->
+<script src="{{ asset('js/main.js') }}"></script>
 
 {% endblock %}

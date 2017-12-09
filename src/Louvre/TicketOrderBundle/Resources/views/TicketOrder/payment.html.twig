@@ -2,43 +2,66 @@
 {% block title %}<title>Paiement</title>{% endblock %}
 {% block body %}
 <div class="container">
-
-      {% if ticketOrder.typeticket == 'Journée' %}
-          <p>Billets valables toute la journée du {{ ticketOrder.visitDate|date('d/m/y') }}</p>
-      {% else %}
-          <p>Billets valables à partir de 14H pour la journée du {{ ticketOrder.visitDate|date('d/m/y') }}</p>
-      {% endif %}
-      <br/>
-      <hr>
-      {% for ticket in ticketOrder.tickets %}
-          <div class="col-sm-4">
-              {{ ticket.name|upper }} {{ ticket.firstName|capitalize }}
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="panel-group">
+           <div class="marge">
+               <div class="panel panel-default">
+                  <div class="panel-heading"><h3>Récapitulatif de la commande</h3></div>
+                  <div class="panel-title">
+                      {% if ticketOrder.typeticket == 'Journée' %}
+                          <p>Billets valables toute la journée du {{ ticketOrder.visitDate|date('d/m/y') }}</p>
+                      {% else %}
+                          <p>Billets valables à partir de 14H pour la journée du {{ ticketOrder.visitDate|date('d/m/y') }}</p>
+                      {% endif %}
+                      <br/>
+                      <hr>
+                      {% for ticket in ticketOrder.tickets %}
+                          <div class="col-sm-4">
+                              {{ ticket.name|upper }} {{ ticket.firstName|capitalize }}
+                          </div>
+                          <div class="col-sm-4">
+                              Tarif : {{ticket.priceList}}
+                          </div>
+                          <div class="col-sm-4">
+                              <p class="price">
+                              Prix unitaire : <b>{{ ticket.price|number_format(2) }} €</b>
+                              </p>
+                          </div>
+                          <br>
+                        <hr>
+                        {% endfor %}
+                  </div>
+                  <div class="panel-body">
+                    <p>
+                      <div class="glyphicon glyphicon-info-sign">Info</div><br>
+                      Le tarif de vos billets est calculé en fonction de votre date de naissance
+                     </p>
+                  </div>
+              </div>
           </div>
-          <div class="col-sm-4">
-              Tarif : {{ticket.priceList}}
-          </div>
-          <div class="col-sm-4">
-              <p class="price">
-              Prix unitaire : <b>{{ ticket.price|number_format(2) }} €</b>
-              </p>
-          </div>
-          <br>
-        <hr>
-        {% endfor %}
-
-       <form action="{{ path('louvre_ticket_order_payment', {'ticketOrder': id})}}" method="POST">
-           <script
-               src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-               data-key="pk_test_z7uqYGr7wWx6NOnlf71o0fAL"
-               data-label="Procéder au paiement"
-               data-amount="{{price}}"
-               data-name="Musée du Louvre"
-               data-image="https://www.louvrebible.org/themes/louvrebible/img/logo_pyramide_accueil.png"
-               data-locale="auto"
-               data-email="{{email}}"
-               data-currency="eur">
-           </script>
-       </form>
-
+          <div class="marge">
+              <div class="panel panel-default">
+                <div class="panel-heading"><h3>Règlement de la commande</h3></div>
+                   <div class="panel-title text-center">
+                     <p>Vous allez recevoir vos billets sur <b>{{ ticketOrder.email }}</b></p>
+                     <p>Total de la commande <b>{{ticketOrder.totalPrice|number_format(2) }} €</b></p>
+                       <form action="{{ path('louvre_ticket_order_payment', {'ticketOrder': id})}}" method="POST">
+                           <script
+                               src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                               data-key="pk_test_z7uqYGr7wWx6NOnlf71o0fAL"
+                               data-label="Procéder au paiement"
+                               data-amount="{{price}}"
+                               data-name="Musée du Louvre"
+                               data-image="https://www.louvrebible.org/themes/louvrebible/img/logo_pyramide_accueil.png"
+                               data-locale="auto"
+                               data-email="{{email}}"
+                               data-currency="eur">
+                           </script>
+                       </form>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

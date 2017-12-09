@@ -1,0 +1,163 @@
+
+body{
+	background-color: rgb(236, 229, 182, 0.5);
+}
+
+hr{
+	border-top: 1px solid rgb(126, 53, 23);
+	width: 90%;
+}
+
+/******Head******/
+.header{
+  color: rgb(126, 53, 23);
+  background-color: rgb(243, 229, 171, 1);
+	border-bottom: 1px solid rgb(126, 53, 23);
+	border-left: 1px solid rgb(126, 53, 23);
+	border-right: 1px solid rgb(126, 53, 23);
+  text-align: center;
+}
+
+.title{
+  font-family: "Times New Roman", Times, serif;
+  font-size: 4em;
+	vertical-align: bottom;
+}
+
+.logo{
+  width : 120px;
+}
+
+@media (max-width: 768px){
+  .header {
+    text-align: center;
+  }
+  .title{
+    font-size: 2em;
+  }
+  .logo{
+    width : 70px;
+  }
+}
+
+
+/******Body******/
+.panel-default > .panel-heading {
+  color: rgb(126, 53, 23);
+	border-bottom: 0.5px solid rgb(126, 53, 23);
+  font-weight: bold;
+  background-color: rgb(243, 229, 171, 1);
+  text-align:center;
+}
+
+.panel-default {
+border: 1px solid rgb(126, 53, 23);
+box-shadow: 8px 8px 12px #aaa;
+}
+
+.panel-title{
+  padding: 20px 0px 10px 0px;
+  background-color: rgb(243, 229, 171, 0.3);
+  color: rgb(126, 53, 23);
+  text-align:center;
+}
+.panel-body{
+	border-top: 1px dashed rgb(126, 53, 23);
+}
+.marge{
+  padding: 60px 0px 0px 0px;
+}
+
+/******widget formulaire******/
+.hello{
+text-align: justify;
+padding: 0% 5% 0% 5%;
+}
+
+@media (max-width: 768px){
+	.hello{
+	text-align: justify;
+	padding: 0px 20px 0px 20px;
+	}
+}
+
+/******widget formulaire******/
+.ticketwidget{
+  width: 250px;
+}
+
+.typeticketwidget{
+  width: 150px;
+  text-align: center;
+}
+
+.emailwidget{
+  width: 250px;
+}
+
+.visitdatewidget{
+  width: 150px;
+  text-align: center;
+}
+
+#appendTicket{
+  margin: 30px 0px 10px 0px;
+}
+
+.buttonticket{
+  text-align: right;
+  padding-right: 10%;
+}
+
+.billets{
+  padding-bottom: : 30px;
+  text-align: center;
+}
+
+@media (max-width: 768px){
+  #collectionContainer {
+    text-align: center;
+  }
+  .ticketwidgetbirthdate{
+    display:inline-block;
+  }
+  .ticketwidget{
+    display:inline-block;
+    width: 200px;
+  }
+  .typeticketwidget{
+    display:inline-block;
+    width: 200px;
+  }
+  .emailwidget{
+    display:inline-block;
+    width: 200px;
+  }
+  .visitdatewidget{
+    display:inline-block;
+    width: 200px;
+    text-align: center;
+  }
+ }
+
+/******icon bootsrtap******/
+ .glyphicon {
+  color: rgb(140, 0, 26) ;
+ }
+
+ .glyphicon-chevron-left{
+ 	color : rgb(126, 53, 23)
+ }
+
+ .glyphicon-chevron-right{
+ 	color : rgb(126, 53, 23)
+ }
+
+ /******Datapicker******/
+.day .disabled {
+ 	font-weight: lighter;
+ 	}
+
+.day{
+ 	color: rgb(126, 53, 23);
+   }

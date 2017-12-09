@@ -1,2 +1,67 @@
-test
-date de viste:<h3>{{ticketOrder.visitDate|date('d/m/Y')}}</h3>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <table width="640" cellpadding="0" cellspacing="0" border="0" class="wrapper" bgcolor="#FFFFFF">
+        <tr>
+        <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+        </tr>
+        <tr>
+        <td align="center" valign="top">
+            <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
+                <tr>
+                <td valign="top">
+                    <h1><img src="images/logo.png" width="60px" alt="logo du louvre"> Musée du Louvre</h1>
+                    <br>
+                      <p>Merci de votre achat, vous trouverez vos billets en piece jointe.</p>
+                      <p>Toute l'équipe du Louvre vous souhaite une agréable visite.</p>
+                    <br>
+                    <h3>Récapitulatif de la commande :</h3>
+                      <p>
+                          {% if ticketOrder.typeTicket == 'Journée' %}
+                          Vos billets son valable pour toute la journée du {{ticketOrder.visitDate|date('d/m/Y')}}
+                          {% else %}
+                          Vos billets son valable pour la journée du {{ticketOrder.visitDate|date('d/m/Y')}} à partir de 14H
+                          {% endif %}
+                      </p>
+                    <table width="500" cellpadding="2" cellspacing="0" border="1" class="container">
+                        <tr>
+                            <th></th>
+                            <th>Tarif</th>
+                            <th>Prix</th>
+                        </tr>
+                          {% for  tickets in ticketOrder.tickets %}
+                              <tr align="center">
+                                  <th>Billet N° {{ loop.index }}</th>
+                                  <td>{{tickets.priceList}}</td>
+                                  <td >{{tickets.price}} €</td>
+                               </tr>
+                          {% endfor %}
+                          <tr>
+                            <th>Prix total </th>
+                            <td colspan="2" align="right">{{ticketOrder.totalPrice}} €</td>
+                          </tr>
+                    </table>
+                    <h3>Rappel</h3>
+                    <ul>
+                      <li>À l'accueil présenter vos billets imprimé ou sur votre smartphone.</li>
+                      <li>Pour les tarifs enfant et senior une pièce d'identité sera demandée.</li>
+                      <li>Pour le tarif reduit un justificatif sera demandé.</li>
+                      <li>Le musée est ouvert tous les jours de 9h à 18h excepté le mardi</li>
+                      <li>Ouvert en nocturne jusqu'à 21h45 le mercredi et le vendredi.</li>
+                    </ul>
+
+                </td>
+                </tr>
+            </table>
+        </td>
+        </tr>
+        <tr>
+        <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+        </tr>
+    </table>
+  </body>
+</html>

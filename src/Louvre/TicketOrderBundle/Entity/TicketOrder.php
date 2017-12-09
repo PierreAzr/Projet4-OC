@@ -430,7 +430,7 @@ class TicketOrder
                    //Si la valeur du formulaire de la case tarif réduit et true
                    //Alors la personne a un tarif reduit
                     elseif ($value->getPriceList() == true) {
-                        $priceList = 'Reduit';
+                        $priceList = 'Réduit';
                         $price[$i] = 10;
                      }
                    //Si la date de naissance et inferieur à la date senior
@@ -459,7 +459,7 @@ class TicketOrder
         $this->setPurchaseDate(new \DateTime('now'));
         //on fait passée la commande au niveau un (commande enregistré mais pas payée)
         $this->setOrderLvl(1);
-        
+
       }
 
 }

@@ -1,2 +1,63 @@
-test
-date de viste:<h3>{{ticketOrder.visitDate|date('d/m/Y')}}</h3>
+
+  <page>
+    <div  style="texte-align:center">
+
+    <br>
+    {% for  tickets in ticketOrder.tickets %}
+    <table style="width:460px;border:1" cellpadding="0" cellspacing="0">
+        <tr>
+          <td style="width:20px; background-color: coral;"></td>
+          <td style="width:440px; text-align:center;" colspan="3">
+            <h2>
+              <img src="https://www.louvrebible.org/themes/louvrebible/img/logo_pyramide_accueil.png" style="width:55px" alt="logo du louvre">
+               Musée du Louvre
+             </h2>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="width:20px; background-color: coral;" cellpadding="0" cellspacing="0"></td>
+          <td style="width:60px;"></td>
+          <td style="width:200px;">
+              <p>Nom : <b>{{tickets.name}}</b></p>
+          </td>
+          <td style="width:180px;">
+              <p>Prénom : <b>{{tickets.firstName}}</b></p>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="width:20px; background-color: coral;" cellpadding="0" cellspacing="0"></td>
+          <td style="width:60px;"></td>
+          <td style="width:200px;">
+              <p>  Billet valable : <b>la journée</b></p>
+          </td>
+          <td style="width:180px;">
+              <p>  Tarif : <b>{{tickets.priceList}}</b>, <b>{{tickets.price}} €</b></p>
+          </td>
+
+        </tr>
+
+        <tr>
+          <td style="width:20px; background-color: coral;" cellpadding="0" cellspacing="0"></td>
+          <td style="width:60px;"></td>
+          <td style="width:200px; vertical-align:top;">
+              <h2>ML{{ticketOrder.id}}B{{tickets.id}}</h2>
+          </td>
+          <td style="width:180px;vertical-align:top;">
+              <h3>{{ticketOrder.visitDate|date('d/m/Y')}}</h3>
+          </td>
+        </tr>
+    </table>
+    <br>
+    {% endfor %}
+    <h3>Rappel</h3>
+    <ul>
+      <li>À l'accueil présenter vos billets imprimé ou sur votre smartphone.</li>
+      <li>Pour les tarifs enfant et senior une pièce d'identité sera demandée.</li>
+      <li>Pour le tarif reduit un justificatif sera demandé.</li>
+      <li>Le musée est ouvert tous les jours de 9h à 18h excepté le mardi</li>
+      <li>Ouvert en nocturne jusqu'à 21h45 le mercredi et le vendredi.</li>
+    </ul>
+    </div>
+  </page>
