@@ -4,16 +4,24 @@
 parameters:
     database_host: 127.0.0.1
     database_port: ~
-    database_name: symfony
+    database_name: LouvreTicketOrder
     database_user: root
     database_password: ~
     # You should uncomment this if you want to use pdo_sqlite
     #database_path: '%kernel.project_dir%/var/data/data.sqlite'
 
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
+    mailer_port: ~
+    mailer_encryption: ssl
+    mailer_auth_mode: ~
+    mailer_host: ~
     mailer_user: ~
     mailer_password: ~
+
+    stripe_api_key_pk: ~
+    stripe_api_key_sk: ~
+
+
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
