@@ -32,7 +32,7 @@ class Ticket
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\Length(min=2, minMessage="Au minimum deux caractére.")
+     * @Assert\Length(min=2, minMessage="Au minimum deux caractère.")
      * @Assert\NotBlank(message="ce champ ne doit pas être vide")
      */
     private $name;
@@ -41,7 +41,7 @@ class Ticket
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=255)
-     * @Assert\Length(min=2, minMessage="Au minimum deux caractére.")
+     * @Assert\Length(min=2, minMessage="Au minimum deux caractère.")
      * @Assert\NotBlank(message="ce champ ne doit pas être vide")
      */
     private $firstName;

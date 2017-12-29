@@ -101,7 +101,7 @@ class TicketOrderControllerTest extends WebTestCase {
        $client->request('POST', '/', $data);
        $this->assertSame(302, $client->getResponse()->getStatusCode());
        $crawler = $client->followRedirect();
-       $this->assertCount(1, $crawler->filter('html:contains("Tarif : Reduit")'));
+       $this->assertCount(1, $crawler->filter('html:contains("Tarif : Réduit")'));
   }
 
   // test si il y a plus de 1000 billets pour une journée

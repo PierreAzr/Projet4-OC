@@ -332,7 +332,7 @@ class TicketOrder
                 }
 
                 //tableau des jour férié ou le musée et fermée
-                $closingDay = ['05-01','11-01','25-12'];
+                $closingDay = ['05-01','11-01','12-25'];
 
                 // Pour chaque jour du tableau on vérifie que la date de visite ne corespond pas à un jour férié
                 foreach ($closingDay as $i => $value) {

@@ -35,6 +35,9 @@ $(document).ready(function() {
     // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
     addDeleteLink($prototype);
 
+    $hr = $('<div style="text-align=center"><hr align="center"></div>');
+    $prototype.append($hr);
+
     // On ajoute le prototype modifié à la fin de la balise <div>
     $container.append($prototype);
 
@@ -45,7 +48,7 @@ $(document).ready(function() {
   // La fonction qui ajoute un lien de suppression d'une catégorie
  function addDeleteLink($prototype) {
    // Création du lien
-   $deleteLink = $('<div class="col-sm-12"><div class="buttonticket"><a href="#" class="btn btn-danger">Supprimer le billet</a></div><div style="text-align=center"><hr align="center"></div></div>');
+   $deleteLink = $('<a class="btn btn-danger">Supprimer le billet</a>');
    // Ajout du lien
    $prototype.append($deleteLink);
    // Ajout du listener sur le clic du lien

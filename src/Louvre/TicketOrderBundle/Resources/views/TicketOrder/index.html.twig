@@ -99,7 +99,7 @@
   <div class="panel-title">
 
         <div class="form-group inline" style="text-align:left;">
-          <div id="collectionContainer"
+          <div style="text-align:center" id="collectionContainer"
               data-prototype="
                  {% filter escape %}
                      {{ include('LouvreTicketOrderBundle:TicketOrder:prototype.html.twig', { 'form': form.tickets.vars.prototype }) }}
@@ -117,7 +117,7 @@
   <div class="panel-body">
       <p>
         <div class="glyphicon glyphicon-info-sign">Info</div><br>
-        - Le tarif sera calculé en fonction des dates de naissance ou si la case tarif reduit et cochée<br>
+        - Le tarif sera calculé en fonction des dates de naissance ou si la case tarif réduit est cochée<br>
         - Tarif:
         <ul>
         <li>Normal 16 € à partir de 12 ans</li>
